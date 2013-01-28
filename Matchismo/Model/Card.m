@@ -9,5 +9,12 @@
 #import "Card.h"
 
 @implementation Card
-
+-(int)match:(NSArray *)others
+{
+    for (Card* card in others) {
+        if([card.contents isEqualToString:self.contents])
+            return 1;
+    }
+    return 0;
+}
 @end
