@@ -9,6 +9,7 @@
 #import "MatchismoTests.h"
 #import "Card.h"
 #import "PlayingCard.h"
+#import "PlayingCardDeck.h"
 @implementation MatchismoTests
 
 - (void)setUp
@@ -67,5 +68,14 @@
     STAssertEqualObjects(pc.contents, @"A♦", @"Ace");
     pc.contents = @"gabbar";
     STAssertEqualObjects(pc.contents, @"A♦", @"Ace");
+}
+
+-(void) testPlayingDeck
+{
+    PlayingCardDeck* deck = [[PlayingCardDeck alloc]init];
+    for(int i = 0; i < 15; i++)
+    {
+        NSLog(@"%@",[deck drawRandomCard].contents);
+    }
 }
 @end

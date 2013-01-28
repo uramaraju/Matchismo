@@ -34,13 +34,14 @@
 }
 -(Card*)drawRandomCard
 {
-    Card* random = nil;
+    Card* randomCard = nil;
     if (self.cards.count)
     {
         int index = arc4random() % self.cards.count;
-        random = self.cards[index];
+        randomCard = self.cards[index];
         // do we need to remove the random one ?
+        [self.cards removeObject:randomCard];
     }
-    return random;
+    return randomCard;
 }
 @end
