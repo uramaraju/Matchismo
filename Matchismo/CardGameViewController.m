@@ -13,6 +13,7 @@
 @property (strong,nonatomic) PlayingCardDeck* deck;
 @property (weak, nonatomic) IBOutlet UILabel *flipCountLabel;
 @property (nonatomic) int flipCount;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @end
 
 @implementation CardGameViewController
@@ -25,22 +26,21 @@
     }
     return _deck;
 }
+
+-(void)setCardButtons:(NSArray *)cardButtons
+{
+    _cardButtons = cardButtons;
+    for (UIButton* button in self.cardButtons)
+    {
+        Card* card = [self.deck drawRandomCard];
+        [button setTitle:card.contents forState:UIControlStateSelected];
+    }
+}
+
 - (IBAction)flipCard:(UIButton *)sender
 {
     sender.selected = !sender.isSelected;
-    if (sender.selected)
-    {
-        Card* card = [self.deck drawRandomCard];
-        if (card)
-        {
-            NSString* cardContents = card.contents;
-            [sender setTitle:cardContents forState:UIControlStateSelected];
-            self.flipCount++;
-            self.flipCountLabel.Text = [NSString stringWithFormat:@"flips: %d",_flipCount];
-        }
-        
-    }
-    
+    self.flipCount++;
 }
 
 @end
