@@ -53,9 +53,20 @@
     NSString* x = [PlayingCard rankStrings] [self.rank];
     return [x stringByAppendingString:self.suit];
 }
--(void) setContents:(NSString *)contents
+
+-(int)match:(NSArray *)others
 {
-    //no op
+    if (others.count==1)
+    {
+        PlayingCard* playingCard = [others lastObject];
+        int score = [(playingCard.suit) isEqualToString:self.suit] ? 1 : 0;
+        if (!score)
+        {
+            score = (playingCard.rank == self.rank) ? 4 : 0;
+        }
+        return score;
+    }
+    return 0;
 }
 
 @end
