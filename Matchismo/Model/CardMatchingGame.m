@@ -54,18 +54,20 @@
         card.unplayable = YES;
         otherCard.unplayable = YES;
         self.score += matchScore * MATCH_BONUS;
+        NSLog(@"Cards matched %@,%@ and are unplayable",card.contents,otherCard.contents);
     }
     else
     {
         otherCard.faceUp = NO;
-        self.score -= MATCH_BONUS;
+        self.score -= MISMATCH_PENALTY;
+        NSLog(@"Cards did not match %@,%@",card.contents,otherCard.contents);
     }
 }
 
 -(void)flipCardAtIndex:(NSUInteger)index
 {
     Card* card = [self cardAtIndex:index];
-    if (card && !card.isUnplayable)
+    if (/*card &&*/ !card.isUnplayable)
     {
         if (!card.isFaceUp)
         {
@@ -81,6 +83,7 @@
             self.score -= FLIP_COST;
         }
         card.faceUp = !card.isFaceUp;
+        
     }
 }
 -(Card*)cardAtIndex:(NSUInteger)index

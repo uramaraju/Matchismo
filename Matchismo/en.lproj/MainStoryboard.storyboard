@@ -192,8 +192,15 @@
                                     <action selector="flipCard:" destination="2" eventType="touchUpInside" id="K7g-J8-fKa"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="flips:0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tgF-Yd-pu7">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Flips:0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tgF-Yd-pu7">
                                 <rect key="frame" x="20" y="419" width="61" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Score:0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5MS-lo-qf7">
+                                <rect key="frame" x="212" y="419" width="75" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -204,6 +211,7 @@
                     </view>
                     <connections>
                         <outlet property="flipCountLabel" destination="tgF-Yd-pu7" id="Vo1-jf-N3R"/>
+                        <outlet property="scoreLabel" destination="5MS-lo-qf7" id="2uq-pU-GyT"/>
                         <outletCollection property="cardButtons" destination="ruc-Gi-4gX" id="j4m-H4-H3s"/>
                         <outletCollection property="cardButtons" destination="2lW-77-dQY" id="fKL-dE-qlK"/>
                         <outletCollection property="cardButtons" destination="Ejv-4d-lAd" id="wSo-Dq-HeQ"/>
@@ -223,6 +231,17 @@
             <point key="canvasLocation" x="-50" y="88"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CardGameViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardGameViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="flipCard:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="flipCountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
+                <relationship kind="outletCollection" name="cardButtons" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
