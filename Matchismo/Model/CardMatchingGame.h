@@ -17,6 +17,7 @@
 
 -(void) flipCardAtIndex:(NSUInteger)index;
 -(Card*) cardAtIndex:(NSUInteger)index;
-
+@property (nonatomic, strong) NSString* statusMessage;
 @property (nonatomic,readonly) int score;
+@property (nonatomic) int matchingCardCount;
 @end

@@ -16,6 +16,8 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (strong, nonatomic) CardMatchingGame* game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *matchModeControl;
 @end
 
 @implementation CardGameViewController
@@ -50,6 +52,8 @@
         cardButton.alpha = (card.isUnplayable)? 0.3:1.0;
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d",self.game.score];
+    self.statusLabel.text = self.game.statusMessage;
+    self.matchModeControl.enabled = self.flipCount == 0;
 }
 
 - (IBAction)flipCard:(UIButton *)sender
@@ -65,5 +69,18 @@
     self.flipCountLabel.text = [NSString stringWithFormat:@"Flips:%d",flipCount];
 }
 
+- (IBAction)dealAgain:(UIButton *)sender
+{
+    _game = nil;
+    self.flipCount = 0;
+    [self updateUI];
+}
+
+- (IBAction)setMatchMode:(UISegmentedControl *)sender
+{
+    NSString* titleOfMode = [sender titleForSegmentAtIndex:sender.selectedSegmentIndex];
+    NSLog(@"matching mode %d",[titleOfMode intValue]);
+    self.game.matchingCardCount= [titleOfMode intValue];
+}
 
 @end
