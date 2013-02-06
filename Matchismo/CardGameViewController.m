@@ -29,6 +29,7 @@
     {
         _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
                                                   usingDeck:[[PlayingCardDeck alloc]init]];
+        [self setMatchMode:self.matchModeControl];
     }
     return _game;
 }
@@ -41,12 +42,16 @@
 
 -(void)updateUI
 {
+    UIImage *uimage = [UIImage imageNamed:@"card-back.png"];
     for (UIButton* cardButton in self.cardButtons)
     {
         int x = [self.cardButtons indexOfObject:cardButton];
         Card* card = [self.game cardAtIndex:x];
         [cardButton setTitle:card.contents forState:UIControlStateSelected];
                 cardButton.selected = card.isFaceUp;
+        UIImage* image = (!card.isFaceUp ? uimage : nil);
+        [cardButton setImage:image
+                    forState:UIControlStateNormal];
         cardButton.enabled = !card.isUnplayable;
         [cardButton setTitle:card.contents forState:UIControlStateDisabled|UIControlStateSelected];
         cardButton.alpha = (card.isUnplayable)? 0.3:1.0;
@@ -79,8 +84,9 @@
 - (IBAction)setMatchMode:(UISegmentedControl *)sender
 {
     NSString* titleOfMode = [sender titleForSegmentAtIndex:sender.selectedSegmentIndex];
-    NSLog(@"matching mode %d",[titleOfMode intValue]);
-    self.game.matchingCardCount= [titleOfMode intValue];
+    int mode = [titleOfMode intValue] == 0 ? 2 : [titleOfMode intValue];
+    NSLog(@"matching mode %d", mode);
+    self.game.matchingCardCount= mode;
 }
 
 @end

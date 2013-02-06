@@ -44,22 +44,32 @@
 #define MISMATCH_PENALTY 2
 #define FLIP_COST 1
 
-- (NSString*)updateScore:(Card *)otherCard card:(Card *)card
+- (NSString*)updateScore:(NSArray *)otherCards card:(Card *)card
 {
-    int matchScore = [card match:@[otherCard]];
+    int matchScore = [card match:otherCards];
+    NSString* otherCardText = @"";
+    for (Card* oc in otherCards) {
+        otherCardText = [NSString stringWithFormat:@"%@ %@", otherCardText, oc.contents];
+    }
     if (matchScore)
     {
         card.unplayable = YES;
-        otherCard.unplayable = YES;
-        int increment = matchScore * MATCH_BONUS;
+        for (Card* otherCard in otherCards)
+        {
+            otherCard.unplayable = YES;
+        }
+        int increment = matchScore * self.matchingCardCount * (self.matchingCardCount);
         self.score += increment;
-        return [NSString stringWithFormat:@"Cards %@,%@ match for score %d",card.contents,otherCard.contents,increment];
+        return [NSString stringWithFormat:@"Cards %@,%@ match for score %d",card.contents,otherCardText,increment];
     }
     else
     {
-        otherCard.faceUp = NO;
-        self.score -= MISMATCH_PENALTY;
-        return [NSString stringWithFormat:@"Cards %@,%@ didn't match",card.contents,otherCard.contents];
+        for (Card* otherCard in otherCards)
+        {
+            otherCard.faceUp = NO;
+        }
+        self.score -= self.matchingCardCount;
+        return [NSString stringWithFormat:@"Cards %@,%@ didn't match",card.contents,otherCardText];
     }
 }
 
@@ -71,16 +81,22 @@
     {
         if (!card.isFaceUp)
         {
+            NSMutableArray* otherCards = [[NSMutableArray alloc]initWithCapacity:self.matchingCardCount];
             for (Card* otherCard in self.cards)
             {
                 if (otherCard.isFaceUp && !otherCard.isUnplayable)
                 {
-                    self.statusMessage = [self updateScore:otherCard card:card];
-                    //todo: I think this is return.
-                    break;
+                    [otherCards addObject:otherCard];
                 }
             }
-            self.score -= FLIP_COST;
+            if (otherCards.count == self.matchingCardCount-1)
+            {
+                self.statusMessage = [self updateScore:otherCards card:card];
+            }
+            else
+            {
+                self.score -= FLIP_COST;
+            }
         }
         else
         {

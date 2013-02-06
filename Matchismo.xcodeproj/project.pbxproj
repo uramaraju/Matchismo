@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FB5519416C20D4B00DCDDFD /* card-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB5519316C20D4B00DCDDFD /* card-back.png */; };
 		4FC4802316B59E90006E2485 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC4802216B59E90006E2485 /* UIKit.framework */; };
 		4FC4802516B59E90006E2485 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC4802416B59E90006E2485 /* Foundation.framework */; };
 		4FC4802716B59E90006E2485 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC4802616B59E90006E2485 /* CoreGraphics.framework */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4FB5519316C20D4B00DCDDFD /* card-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-back.png"; sourceTree = "<group>"; };
 		4FC4801E16B59E90006E2485 /* Matchismo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matchismo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC4802216B59E90006E2485 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4FC4802416B59E90006E2485 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -150,6 +152,7 @@
 		4FC4802916B59E90006E2485 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4FB5519316C20D4B00DCDDFD /* card-back.png */,
 				4FC4803116B59E90006E2485 /* CardGameAppDelegate.h */,
 				4FC4803216B59E90006E2485 /* CardGameAppDelegate.m */,
 				4FC4802A16B59E90006E2485 /* Matchismo-Info.plist */,
@@ -276,6 +279,7 @@
 				4FC4803716B59E90006E2485 /* Default@2x.png in Resources */,
 				4FC4803916B59E90006E2485 /* Default-568h@2x.png in Resources */,
 				4FC4803C16B59E90006E2485 /* MainStoryboard.storyboard in Resources */,
+				4FB5519416C20D4B00DCDDFD /* card-back.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

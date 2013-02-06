@@ -78,4 +78,24 @@
         NSLog(@"%@",[deck drawRandomCard].contents);
     }
 }
+
+-(void) testMatch
+{
+    PlayingCard* pc = [[PlayingCard alloc]init];
+    pc.suit = @"♦";
+    pc.rank = 2;
+    
+    PlayingCard* pc2 = [[PlayingCard alloc]init];
+    pc2.suit = @"♦";
+    pc2.rank = 3;
+    
+    int count = [pc match:@[pc2]];
+    NSLog(@"Match count %d",count);
+    
+    NSMutableArray* ar = [[NSMutableArray alloc]initWithCapacity:1];
+    [ar addObject:pc2];
+    count = [pc match:ar];
+    NSLog(@"Match count %d",count);
+    
+}
 @end

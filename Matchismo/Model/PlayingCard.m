@@ -50,21 +50,35 @@
 
 -(NSString*) contents
 {
-    NSString* x = [PlayingCard rankStrings] [self.rank];
-    return [x stringByAppendingString:self.suit];
+    NSString* rankString = [PlayingCard rankStrings] [self.rank];
+    return [rankString stringByAppendingString:self.suit];
 }
 
 -(int)match:(NSArray *)others
 {
     if (others.count==1)
     {
-        PlayingCard* playingCard = [others lastObject];
-        int score = [(playingCard.suit) isEqualToString:self.suit] ? 1 : 0;
+        PlayingCard* px = others[0];
+        NSString* x = px.suit;
+        NSString* y = self.suit;
+        
+        int score = [x isEqualToString:y] ? 1 : 0;
         if (!score)
         {
-            score = (playingCard.rank == self.rank) ? 4 : 0;
+            score = (px.rank == self.rank) ? 4 : 0;
         }
         return score;
+    }
+    else if (others.count > 1)
+    {
+        NSRange range = NSMakeRange(1,others.count-1);
+        NSArray* nextCards = [others subarrayWithRange:range];
+        PlayingCard* firstCard = others[0];
+        int subScore =  [firstCard match:nextCards];
+        if (subScore)
+        {
+            return [self match:@[firstCard]];
+        }
     }
     return 0;
 }
