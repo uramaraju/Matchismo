@@ -44,32 +44,39 @@
 #define MISMATCH_PENALTY 2
 #define FLIP_COST 1
 
-- (NSString*)updateScore:(NSArray *)otherCards card:(Card *)card
+- (NSString *)contentsOfCards:(NSArray *)cards
 {
-    int matchScore = [card match:otherCards];
-    NSString* otherCardText = @"";
-    for (Card* oc in otherCards) {
-        otherCardText = [NSString stringWithFormat:@"%@ %@", otherCardText, oc.contents];
+    NSString* mathcingCardsContents = @"";
+    for (Card* card in cards)
+    {
+        mathcingCardsContents = [NSString stringWithFormat:@"%@ %@", mathcingCardsContents, card.contents];
     }
-    if (matchScore)
+    return mathcingCardsContents;
+}
+
+- (NSString*)updateScoreAndStatusForCard:(Card *)card matching:(NSArray*)cards
+{
+    int matchScore = [card match:cards];
+    NSString *mathcingCardsContents = [self contentsOfCards:cards];
+    if (matchScore > 0 )
     {
         card.unplayable = YES;
-        for (Card* otherCard in otherCards)
+        for (Card* otherCard in cards)
         {
             otherCard.unplayable = YES;
         }
         int increment = matchScore * self.matchingCardCount * (self.matchingCardCount);
         self.score += increment;
-        return [NSString stringWithFormat:@"Cards %@,%@ match for score %d",card.contents,otherCardText,increment];
+        return [NSString stringWithFormat:@"Cards %@ %@ match for score %d",card.contents,mathcingCardsContents,increment];
     }
     else
     {
-        for (Card* otherCard in otherCards)
+        for (Card* otherCard in cards)
         {
             otherCard.faceUp = NO;
         }
         self.score -= self.matchingCardCount;
-        return [NSString stringWithFormat:@"Cards %@,%@ didn't match",card.contents,otherCardText];
+        return [NSString stringWithFormat:@"Cards %@ %@ didn't match",card.contents,mathcingCardsContents];
     }
 }
 
@@ -81,17 +88,17 @@
     {
         if (!card.isFaceUp)
         {
-            NSMutableArray* otherCards = [[NSMutableArray alloc]initWithCapacity:self.matchingCardCount];
+            NSMutableArray* faceupPlayableCards = [[NSMutableArray alloc]initWithCapacity:self.matchingCardCount];
             for (Card* otherCard in self.cards)
             {
                 if (otherCard.isFaceUp && !otherCard.isUnplayable)
                 {
-                    [otherCards addObject:otherCard];
+                    [faceupPlayableCards addObject:otherCard];
                 }
             }
-            if (otherCards.count == self.matchingCardCount-1)
+            if (faceupPlayableCards.count == self.matchingCardCount-1)
             {
-                self.statusMessage = [self updateScore:otherCards card:card];
+                self.statusMessage = [self updateScoreAndStatusForCard:card matching:faceupPlayableCards];
             }
             else
             {

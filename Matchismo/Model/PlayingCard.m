@@ -71,13 +71,14 @@
     }
     else if (others.count > 1)
     {
+        //it has a bug, subtle.
         NSRange range = NSMakeRange(1,others.count-1);
         NSArray* nextCards = [others subarrayWithRange:range];
         PlayingCard* firstCard = others[0];
         int subScore =  [firstCard match:nextCards];
         if (subScore)
         {
-            return [self match:@[firstCard]];
+            return MIN(subScore, [self match:@[firstCard]]);
         }
     }
     return 0;

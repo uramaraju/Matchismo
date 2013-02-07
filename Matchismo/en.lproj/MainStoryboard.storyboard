@@ -307,7 +307,7 @@
                     </view>
                     <connections>
                         <outlet property="flipCountLabel" destination="tgF-Yd-pu7" id="Vo1-jf-N3R"/>
-                        <outlet property="matchModeControl" destination="RMr-Fe-CkL" id="sml-bx-iqZ"/>
+                        <outlet property="matchNumberModeControl" destination="RMr-Fe-CkL" id="koH-E7-Idf"/>
                         <outlet property="scoreLabel" destination="5MS-lo-qf7" id="2uq-pU-GyT"/>
                         <outlet property="statusLabel" destination="3Og-5v-yY5" id="XbL-i1-iUb"/>
                         <outletCollection property="cardButtons" destination="ruc-Gi-4gX" id="j4m-H4-H3s"/>
@@ -333,21 +333,6 @@
             <point key="canvasLocation" x="-553" y="-42"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="CardGameViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardGameViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dealAgain:" candidateClass="UIButton"/>
-                <relationship kind="action" name="flipCard:" candidateClass="UIButton"/>
-                <relationship kind="action" name="setMatchMode:" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="flipCountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="matchModeControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
-                <relationship kind="outletCollection" name="cardButtons" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
