@@ -11,28 +11,14 @@
 #import "PlayingCard.h"
 #import "CardMatchingGame.h"
 @interface CardGameViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *flipCountLabel;
-@property (nonatomic) int flipCount;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (strong, nonatomic) CardMatchingGame* game;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *matchNumberModeControl;
 @end
 
 @implementation CardGameViewController
 
 
--(CardMatchingGame*) game
-{
-    if (!_game)
-    {
-        _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
-                                                  usingDeck:[[PlayingCardDeck alloc]init]];
-        [self setMatchMode:self.matchNumberModeControl];
-    }
-    return _game;
-}
+
 
 -(void)setCardButtons:(NSArray *)cardButtons
 {
@@ -45,17 +31,22 @@
     UIImage *uimage = [UIImage imageNamed:@"card-back.png"];
     for (UIButton* cardButton in self.cardButtons)
     {
+        
         int index = [self.cardButtons indexOfObject:cardButton];
+//        NSLog(@"index %d",index);
         Card* card = [self.game cardAtIndex:index];
-        [cardButton setTitle:card.contents
-                    forState:UIControlStateSelected];
+//        [cardButton setTitle:card.contents
+//                    forState:UIControlStateSelected];
+//        [cardButton setTitle:card.contents
+//                    forState:UIControlStateDisabled|UIControlStateSelected];
+        [cardButton setAttributedTitle:card.attributedContents forState:UIControlStateSelected];
+        [cardButton setAttributedTitle:card.attributedContents forState:UIControlStateSelected|UIControlStateDisabled];
         
         UIImage* image = (!card.isFaceUp ? uimage : nil);
         [cardButton setImage:image
                     forState:UIControlStateNormal];
-        [cardButton setImageEdgeInsets:UIEdgeInsetsMake(1,-1,-1,1)];
-        [cardButton setTitle:card.contents
-                    forState:UIControlStateDisabled|UIControlStateSelected];
+        [cardButton setImageEdgeInsets:UIEdgeInsetsMake(-1,-1,-1,-1)];
+        
         if (cardButton.selected != card.isFaceUp)
         {
             [UIView beginAnimations:@"flipbutton" context:NULL];
@@ -70,7 +61,8 @@
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d",self.game.score];
     self.statusLabel.text = self.game.statusMessage;
-    self.matchNumberModeControl.enabled = self.flipCount == 0;
+    NSLog(@"%@",self.game.statusMessage);
+   // self.matchNumberModeControl.enabled = self.flipCount == 0;
 }
 
 - (IBAction)flipCard:(UIButton *)sender
@@ -88,7 +80,7 @@
 
 - (IBAction)dealAgain:(UIButton *)sender
 {
-    _game = nil;
+    self.game = nil;
     self.flipCount = 0;
     [self updateUI];
 }

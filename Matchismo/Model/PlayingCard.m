@@ -54,6 +54,10 @@
     return [rankString stringByAppendingString:self.suit];
 }
 
+- (NSAttributedString *) attributedContents
+{
+    return [[NSAttributedString alloc] initWithString:self.contents];
+}
 -(int)match:(NSArray *)others
 {
     if (others.count==1)

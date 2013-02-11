@@ -15,7 +15,10 @@
 @end
 
 @implementation SetCard
-
+-(NSString*) contents
+{
+    return [NSString stringWithFormat:@"%d %@ %@ %@", self.rank, self.symbol, self.color, self.shade];
+}
 -(NSAttributedString*) attributedContents
 {
     NSString* contentsSymbol = self.symbol;
@@ -24,7 +27,8 @@
         contentsSymbol = [NSString stringWithFormat:@"%@%@",self.symbol, contentsSymbol];
     }
     NSDictionary *attributes = @{ NSStrokeColorAttributeName     : [self displayColor],
-                                  NSForegroundColorAttributeName : [self shadeColor],
+                                 // NSForegroundColorAttributeName : [self shadeColor],
+                                  NSBackgroundColorAttributeName : [self shadeColor],
                                   NSStrokeWidthAttributeName     : @-5 };
     NSMutableAttributedString* attributedContents = [[NSMutableAttributedString alloc]initWithString:contentsSymbol attributes:attributes];
    
@@ -42,7 +46,7 @@
        
     if ([self.shade isEqualToString:@"Solid"]) {
         shadeColor = [self displayColor];
-    } else if ([self.shade isEqualToString:@"Shaded"]) {
+    } else if ([self.shade isEqualToString:@"Shade"]) {
         shadeColor = [SHADEDCOLORMAPPINGS objectForKey:self.color];
     } else if ([self.shade isEqualToString:@"Open"]) {
         shadeColor = [UIColor colorWithWhite:0.0 alpha:0.0];

@@ -14,6 +14,9 @@
 // designated constructor.
 -(id)initWithCardCount:(NSUInteger)count
              usingDeck:(Deck*)deck;
+-(id)initWithCardCount:(NSUInteger)count
+             usingDeck:(Deck*)deck
+         matchingCount:(int) matchCount;
 
 -(void) flipCardAtIndex:(NSUInteger)index;
 -(Card*) cardAtIndex:(NSUInteger)index;

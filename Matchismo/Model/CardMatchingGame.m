@@ -18,6 +18,13 @@
 -(id)initWithCardCount:(NSUInteger)count
              usingDeck:(Deck*)deck
 {
+    return [self initWithCardCount:count usingDeck:deck matchingCount:2];
+}
+
+-(id)initWithCardCount:(NSUInteger)count
+             usingDeck:(Deck*)deck
+         matchingCount:(int) matchCount
+{
     self = [super init];
     if (self)
     {
@@ -34,7 +41,7 @@
                 return nil;
             }
         }
-        self.matchingCardCount = 2;
+        self.matchingCardCount = matchCount;
         self.statusMessage =@"Deck initialized";
     }
     return self;
@@ -65,7 +72,7 @@
         {
             otherCard.unplayable = YES;
         }
-        int increment = matchScore * self.matchingCardCount * (self.matchingCardCount);
+        int increment = matchScore + MATCH_BONUS;
         self.score += increment;
         return [NSString stringWithFormat:@"Cards %@ %@ match for score %d",card.contents,mathcingCardsContents,increment];
     }
@@ -75,7 +82,7 @@
         {
             otherCard.faceUp = NO;
         }
-        self.score -= self.matchingCardCount;
+        self.score -= MISMATCH_PENALTY;
         return [NSString stringWithFormat:@"Cards %@ %@ didn't match",card.contents,mathcingCardsContents];
     }
 }
@@ -86,6 +93,7 @@
     Card* card = [self cardAtIndex:index];
     if (card && !card.isUnplayable)
     {
+        NSLog(@"Flipped up %@",card.contents);
         if (!card.isFaceUp)
         {
             NSMutableArray* faceupPlayableCards = [[NSMutableArray alloc]initWithCapacity:self.matchingCardCount];
