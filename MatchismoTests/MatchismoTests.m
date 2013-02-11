@@ -10,6 +10,7 @@
 #import "Card.h"
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
+#import "SetCard.h"
 @implementation MatchismoTests
 
 - (void)setUp
@@ -98,4 +99,6 @@
     NSLog(@"Match count %d",count);
     
 }
+
+
 @end
